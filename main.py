@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.btn.setText(_translate("MainWindow", "Нарисовать круг"))
-
+        
 
 class MainWin(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -34,15 +34,17 @@ class MainWin(QMainWindow, Ui_MainWindow):
         self.setWindowTitle("Жёлтые круги")
         self.circle = [0, 0 ,0]
         self.btn.clicked.connect(self.act)
+        self.colors = [randint(0, 255), randint(0, 255), randint(0, 255)]
 
     def act(self):
         self.circle[2] = randint(20, 300)
         self.circle[0] = randint(0, self.width() - self.circle[2])
         self.circle[1] = randint(0, self.height() - self.circle[2])
+        self.colors = [randint(0, 255), randint(0, 255), randint(0, 255)]
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.setBrush(QColor(255, 255, 0))
+        painter.setBrush(QColor(self.colors[0], self.colors[1], self.colors[2]))
         painter.drawEllipse(self.circle[0], self.circle[1], self.circle[2], self.circle[2])
         self.update()
 
